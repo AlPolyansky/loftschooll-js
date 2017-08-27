@@ -59,10 +59,11 @@ function returnCounter(number = 0) {
  */
 function bindFunction(fn) {
 
-    let args = [...arguments];
-    args.splice(0, 1);
+    [...arguments].filter((item,index) => {
+        if(index) fn = fn.bind(this, item);
+    })
 
-    return fn.bind(this, args);
+    return fn;
 }
 
 export {
