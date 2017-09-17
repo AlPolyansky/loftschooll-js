@@ -14,8 +14,6 @@ function delayPromise(seconds) {
     })
 }
 
-
-
 /**
  * Функция должна вернуть Promise, который должен быть разрешен массивом городов, загруженным из
  * https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json
@@ -25,14 +23,15 @@ function delayPromise(seconds) {
  */
 function loadAndSortTowns() {
 
-
     return fetch('https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json')
         .then(function(response) {
             return response.json();
         })
         .then(function(arr) {
             return arr.sort((a, b) => {
-                return (a.name < b.name) ? -1 : (a.name > b.name) ? 1 : 0;
+                let val = (a.name > b.name) ? 1 : 0;
+
+                return (a.name < b.name) ? -1 : val;
             });
         })
 

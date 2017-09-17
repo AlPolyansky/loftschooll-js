@@ -29,7 +29,6 @@
  * 
  */
 
-
 let homeworkContainer = document.querySelector('#homework-container');
 
 /**
@@ -38,8 +37,6 @@ let homeworkContainer = document.querySelector('#homework-container');
  *
  * @return {Promise<Array<{name: string}>>}
  */
-
-
 
 function handleErrors(response) {
     if (!response.ok) {
@@ -116,21 +113,15 @@ function addReloadButton() {
     });
 }
 
-
-
 townsPromise
     .then(function(res) {
         allTowns = res;
         loadingBlock.style.display = 'none';
         filterBlock.style.display = 'block';
     })
-    .catch(function(err) {
-        console.log(err);
+    .catch(function() {
         addReloadButton();
     })
-
-
-
 
 filterInput.addEventListener('keyup', function(e) {
     let val = e.target.value;
