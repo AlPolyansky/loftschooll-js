@@ -36,7 +36,7 @@ let homeworkContainer = document.querySelector('#homework-container');
 let filterNameInput = homeworkContainer.querySelector('#filter-name-input');
 let addNameInput = homeworkContainer.querySelector('#add-name-input');
 let addValueInput = homeworkContainer.querySelector('#add-value-input');
-let addButton = homeworkContainer.querySelector('#add-button');
+// let addButton = homeworkContainer.querySelector('#add-button');
 let listTable = homeworkContainer.querySelector('#list-table tbody');
 
 let _data = {
@@ -73,8 +73,6 @@ function addCookie(params) {
         });
     }
 
-
-
     if (!_data.cookies.length) {
         setCookie();
     } else {
@@ -91,7 +89,6 @@ function addCookie(params) {
             setCookie();
         }
     }
-
 
     return replace ? 'replace' : 'add';
 
@@ -113,7 +110,7 @@ function cookieFilter(val) {
     return _data.cookies.filter(item => {
         return isMatching(item.name, val);
     });
-};
+}
 
 // Функция добавляет ряд в таблицу
 function addTableRow(params) {
@@ -139,7 +136,6 @@ function addTableRow(params) {
     tr.appendChild(thMiddle);
     tr.appendChild(thLast);
 }
-
 
 // Удаляет куку
 function removeCookie(cookieName) {
@@ -184,47 +180,6 @@ filterNameInput.addEventListener('keyup', function(e) {
     }
 });
 
-
-// Слушатель добавляения куки
-addButton.addEventListener('click', (e) => {
-
-
-    let inputName = addNameInput.value.trim();
-    let inputVal = addValueInput.value.trim();
-
-    if (!inputName && !inputVal) {
-        return false;
-    }
-
-    let cookieType = addCookie({
-        cookieName: inputName,
-        cookieValue: inputVal
-    });
-
-
-
-    if (cookieType === 'add') {
-        addTableRow({
-            cookieName: inputName,
-            cookieValue: inputVal
-        })
-    }
-
-    if (cookieType === 'replace') {
-        [...document.querySelectorAll('tbody th')].forEach(item => {
-            if (item.innerHTML === inputName) {
-                item.nextSibling.innerHTML = inputVal;
-            }
-        });
-    }
-
-
-
-    addNameInput.value = '';
-    addValueInput.value = '';
-});
-
-
 // Слушатель клика куки
 
 document.addEventListener('click', (e) => {
@@ -239,7 +194,35 @@ document.addEventListener('click', (e) => {
     }
 
     if (e.target.getAttribute('id') === 'add-button') {
+        let inputName = addNameInput.value.trim();
+        let inputVal = addValueInput.value.trim();
 
+        if (!inputName && !inputVal) {
+            return false;
+        }
+
+        let cookieType = addCookie({
+            cookieName: inputName,
+            cookieValue: inputVal
+        });
+
+        if (cookieType === 'add') {
+            addTableRow({
+                cookieName: inputName,
+                cookieValue: inputVal
+            })
+        }
+
+        if (cookieType === 'replace') {
+            [...document.querySelectorAll('tbody th')].forEach(item => {
+                if (item.innerHTML === inputName) {
+                    item.nextSibling.innerHTML = inputVal;
+                }
+            });
+        }
+
+        addNameInput.value = '';
+        addValueInput.value = '';
     }
 
 });
